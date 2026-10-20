@@ -59,5 +59,22 @@ export function calculateNightBreakMinutes(shift: Shift): number {
 
 }
 
-export function calculateNightBreakHours(shift: Shift): number {
-}
+export function calculateNightHours(shift: Shift): number {
+  const day = 1440;
+  const hour = 60;
+
+  let endTime = timeToMinutes(shift.endHour, shift.endMinute);
+  let nightEndTime = timeToMinutes(shift.nightPremiumEndHour, shift.nightPremiumEndMinute) + day;
+  const startTime = timeToMinutes (shift.startHour, shift.startMinute);
+  const nightStartTime = timeToMinutes(shift.nightPremiumStartHour, shift.nightPremiumStartMinute);
+
+  const nightBreakTime = calculateNightBreakMinutes(shift)
+    if(endTime < startTime) {
+      endTime = endTime + day;
+    };
+
+      const overlapStart = Math.max(startTime, nightStartTime);
+      const overlapEnd = Math.min(endTime, nightEndTime);
+
+      return Math.max(0, overlapEnd - overlapStart - nightBreakTime) / hour;
+  }
