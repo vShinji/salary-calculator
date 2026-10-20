@@ -9,6 +9,8 @@ export function timeToMinutes(
 
 export function calculateShiftHours(shift: Shift): number {
   const day = 1440;
+  const hour = 60;
+
   const startTime = timeToMinutes(shift.startHour, shift.startMinute);
   let endTime = timeToMinutes(shift.endHour, shift.endMinute);
 
@@ -16,5 +18,14 @@ export function calculateShiftHours(shift: Shift): number {
     endTime += day;
   }
 
-  return (endTime - startTime) / 60;
+  return (endTime - startTime) / hour;
+}
+
+export function calculateBreakHours(shift: Shift): number {
+  const hour = 60;
+
+  const breakStart = timeToMinutes(shift.breakStartHour, shift.breakStartMinute);
+  const breakEnd = timeToMinutes(shift.breakEndHour, shift.breakEndMinute);
+
+  return (breakEnd - breakStart) / hour;
 }
