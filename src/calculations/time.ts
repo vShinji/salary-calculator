@@ -1,43 +1,5 @@
 import type { Shift } from "../types/Shift";
 
-const nightShift = {
-  hourlyRate: 1550,
-  startHour: 17,
-  startMinute: 30,
-  endHour: 2,
-  endMinute: 30,
-  breakStartHour: 21,
-  breakStartMinute: 40,
-  breakEndHour: 22,
-  breakEndMinute: 20,
-  regularHours: 8,
-  nightPremium: 0.25,
-  overtimePremium: 0.25,
-  nightPremiumStartHour: 22,
-  nightPremiumStartMinute: 0,
-  nightPremiumEndHour: 5,
-  nightPremiumEndMinute: 0,
-};
-
-const morningShift = {
-  hourlyRate: 1550,
-  startHour: 6,
-  startMinute: 30,
-  endHour: 15,
-  endMinute: 30,
-  breakStartHour: 10,
-  breakStartMinute: 40,
-  breakEndHour: 11,
-  breakEndMinute: 20,
-  regularHours: 8,
-  nightPremium: 0.25,
-  overtimePremium: 0.25,
-  nightPremiumStartHour: 22,
-  nightPremiumStartMinute: 0,
-  nightPremiumEndHour: 5,
-  nightPremiumEndMinute: 0,
-};
-
 export function timeToMinutes(
   hour: number,
   minute: number
@@ -70,7 +32,32 @@ export function calculateBreakHours(shift: Shift): number {
 
 export function calculateWorkedHours(shift: Shift): number {
   return calculateShiftHours(shift) - calculateBreakHours(shift);
+};
+
+export function calculateNightBreakMinutes(shift: Shift): number {
+  const day = 1440;
+
+  let breakStart = timeToMinutes(shift.breakStartHour, shift.breakStartMinute);
+  let breakEnd = timeToMinutes(shift.breakEndHour, shift.breakEndMinute);
+
+  const nightStart = timeToMinutes(shift.nightPremiumStartHour, shift.nightPremiumStartMinute);
+  const nightEnd = timeToMinutes(shift.nightPremiumEndHour, shift.nightPremiumEndMinute) + day;
+  const startTime = timeToMinutes(shift.startHour, shift.startMinute);
+
+  if (breakStart < startTime) {
+    breakStart = breakStart + day
+  }
+
+  if (breakEnd < breakStart) {
+    breakEnd = breakEnd + day
+  }
+
+  const overlapStart = Math.max(breakStart, nightStart);
+  const overlapEnd = Math.min(breakEnd, nightEnd);
+
+  return Math.max(0, overlapEnd - overlapStart);
+
 }
 
-
-console.log(calculateWorkedHours(morningShift));
+export function calculateNightBreakHours(shift: Shift): number {
+}
