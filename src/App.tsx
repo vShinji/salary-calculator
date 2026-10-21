@@ -76,6 +76,7 @@ console.log(calculateTotalPay(nightShift));
 
 function App() {
   const [hourlyRate, setHourlyRate] = useState<number>(1550);
+  const [startTime, setStartTime] = useState<string>("17:30");
 
   return(
     <>
@@ -84,7 +85,17 @@ function App() {
       <input
       type="number"
       value={hourlyRate}
-      onChange={(event) => setHourlyRate(Number(event.target.value))} />
+      onChange={(event) => setHourlyRate(Number(event.target.value))}
+      />
+      <p>Start time: {startTime}</p>
+      <label>
+        Start time:
+        <input
+        type="time"
+        value={startTime}
+        onChange={(event) => setStartTime(event.target.value)}
+        />
+      </label>
     </>
   )
 
