@@ -75,7 +75,18 @@ console.log(calculateTotalPay(nightShift));
 
 
 function App() {
-  return <h1>Salary Calculator</h1>;
+  const [hourlyRate, setHourlyRate] = useState<number>(1550);
+
+  return(
+    <>
+      <h1>Salary Calculator</h1>
+      <p>Hourly rate: ¥{hourlyRate}</p>
+      <input
+      type="number"
+      value={hourlyRate}
+      onChange={(event) => setHourlyRate(Number(event.target.value))} />
+    </>
+  )
 
 }
 
