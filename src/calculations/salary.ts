@@ -22,3 +22,7 @@ export function calculateOvertimeHours(shift:Shift): number {
 export function calculateOvertimePremium(shift:Shift): number {
   return calculateOvertimeHours(shift) * shift.hourlyRate * shift.overtimePremium;
 }
+
+export function calculateTotalPay(shift:Shift): number {
+  return calculateShiftPay(shift) + calculateNightPremium(shift) + calculateOvertimePremium(shift);
+}
