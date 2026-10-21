@@ -8,3 +8,13 @@ export function calculateShiftPay(shift:Shift): number {
 export function calculateNightPremium(shift:Shift): number {
   return calculateNightHours(shift) * shift.hourlyRate * shift.nightPremium;
 }
+
+export function calculateOvertimeHours(shift:Shift): number {
+  const workedHours = calculateWorkedHours(shift);
+
+  if (workedHours > shift.regularHours) {
+    return workedHours - shift.regularHours;
+  } else {
+    return 0
+  }
+}
