@@ -6,6 +6,7 @@ import './App.css'
 
 import type { Shift } from "./types/Shift";
 import {calculateShiftHours, calculateBreakHours, calculateWorkedHours, calculateNightBreakMinutes, calculateNightHours} from "./calculations/time";
+import {calculateShiftPay, calculateNightPremium, calculateOvertimePremium, calculateTotalPay} from "./calculations/salary";
 
 const morningShift: Shift = {
   hourlyRate: 1550,
@@ -63,7 +64,15 @@ console.log(calculateWorkedHours(nightShift));
 console.log(calculateNightBreakMinutes(nightShift));
 console.log(calculateNightBreakMinutes(morningShift));
 console.log(calculateNightHours(nightShift));
-console.log(calculateNightHours(morningShift));
+console.log(calculateShiftPay(morningShift));
+console.log(calculateNightPremium(morningShift));
+console.log(calculateOvertimePremium(morningShift));
+console.log(calculateTotalPay(morningShift));
+console.log(calculateShiftPay(nightShift));
+console.log(calculateNightPremium(nightShift));
+console.log(calculateOvertimePremium(nightShift));
+console.log(calculateTotalPay(nightShift));
+
 
 function App() {
   return <h1>Salary Calculator</h1>;
