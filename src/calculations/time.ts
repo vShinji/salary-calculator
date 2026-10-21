@@ -70,7 +70,7 @@ export function calculateNightHours(shift: Shift): number {
 
   const nightBreakTime = calculateNightBreakMinutes(shift)
     if(endTime < startTime) {
-      endTime = endTime + day;
+      endTime += day;
     };
 
       const overlapStart = Math.max(startTime, nightStartTime);

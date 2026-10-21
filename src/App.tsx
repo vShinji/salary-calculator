@@ -5,7 +5,7 @@ import viteLogo from './assets/vite.svg'
 import './App.css'
 
 import type { Shift } from "./types/Shift";
-import {calculateShiftHours, calculateBreakHours, calculateWorkedHours, calculateNightBreakMinutes} from "./calculations/time";
+import {calculateShiftHours, calculateBreakHours, calculateWorkedHours, calculateNightBreakMinutes, calculateNightHours} from "./calculations/time";
 
 const morningShift: Shift = {
   hourlyRate: 1550,
@@ -62,9 +62,12 @@ console.log(calculateBreakHours(nightShift));
 console.log(calculateWorkedHours(nightShift));
 console.log(calculateNightBreakMinutes(nightShift));
 console.log(calculateNightBreakMinutes(morningShift));
+console.log(calculateNightHours(nightShift));
+console.log(calculateNightHours(morningShift));
 
 function App() {
   return <h1>Salary Calculator</h1>;
+
 }
 
 export default App
