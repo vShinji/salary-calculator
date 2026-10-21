@@ -18,3 +18,7 @@ export function calculateOvertimeHours(shift:Shift): number {
     return 0
   }
 }
+
+export function calculateOvertimePremium(shift:Shift): number {
+  return calculateOvertimeHours(shift) * shift.hourlyRate * shift.overtimePremium;
+}
