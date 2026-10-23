@@ -77,6 +77,9 @@ console.log(calculateTotalPay(nightShift));
 function App() {
   const [hourlyRate, setHourlyRate] = useState<number>(1550);
   const [startTime, setStartTime] = useState<string>("17:30");
+  const [endTime, setEndTime] = useState<string>("02:30");
+  const [breakStartTime, setBreakStartTime] = useState<string>("21:40");
+  const [breakEndTime, setBreakEndTime] = useState<string>("22:20");
 
   return(
     <>
@@ -94,6 +97,33 @@ function App() {
         type="time"
         value={startTime}
         onChange={(event) => setStartTime(event.target.value)}
+        />
+      </label>
+      <p>End time: {endTime}</p>
+      <label>
+        End time:
+        <input
+        type="time"
+        value={endTime}
+        onChange={(event) => setEndTime(event.target.value)}
+        />
+      </label>
+      <p>Break start time: {breakStartTime}</p>
+      <label>
+        Break start time:
+        <input
+        type="time"
+        value={breakStartTime}
+        onChange={(event) => setBreakStartTime(event.target.value)}
+        />
+      </label>
+      <p>Break end time: {breakEndTime}</p>
+      <label>
+        Break end time:
+        <input
+        type="time"
+        value={breakEndTime}
+        onChange={(event) => setBreakEndTime(event.target.value)}
         />
       </label>
     </>
