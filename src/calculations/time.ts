@@ -78,3 +78,16 @@ export function calculateNightHours(shift: Shift): number {
 
       return Math.max(0, overlapEnd - overlapStart - nightBreakTime) / hour;
   }
+
+export function parseTime(time: string): {
+  hour: number;
+  minute: number;
+} {
+  const timeString = time.split(":");
+  const parsedHour = parseInt(timeString[0], 10);
+  const parsedMinute = parseInt(timeString[1], 10);
+ return {
+  hour: parsedHour,
+  minute: parsedMinute,
+ }
+}
