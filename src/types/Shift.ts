@@ -1,3 +1,5 @@
+import type { Break } from "./Break";
+
 export interface Shift {
   hourlyRate: number;
 
@@ -7,10 +9,7 @@ export interface Shift {
   endHour: number;
   endMinute: number;
 
-  breakStartHour: number;
-  breakStartMinute: number;
-  breakEndHour: number;
-  breakEndMinute: number;
+  breaks: Break[];
 
   regularHours: number;
 

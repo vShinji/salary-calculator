@@ -5,7 +5,7 @@ import viteLogo from './assets/vite.svg'
 import './App.css'
 
 import type { Shift } from "./types/Shift";
-import {calculateShiftHours, calculateBreakHours, calculateWorkedHours, calculateNightBreakMinutes, calculateNightHours} from "./calculations/time";
+import {calculateShiftHours, calculateBreakHours, calculateWorkedHours, calculateNightBreakMinutes, calculateNightHours, parseTime} from "./calculations/time";
 import {calculateShiftPay, calculateNightPremium, calculateOvertimePremium, calculateTotalPay} from "./calculations/salary";
 
 const morningShift: Shift = {
@@ -17,10 +17,29 @@ const morningShift: Shift = {
   endHour: 15,
   endMinute: 30,
 
-  breakStartHour: 10,
-  breakStartMinute: 40,
-  breakEndHour: 11,
-  breakEndMinute: 20,
+  breaks: [
+    {
+    startHour: 8,
+    startMinute: 30,
+    endHour: 8,
+    endMinute: 40,
+    paid: false,
+  },
+  {
+    startHour: 10,
+    startMinute: 40,
+    endHour: 11,
+    endMinute: 20,
+    paid: false,
+  },
+  {
+    startHour: 13,
+    startMinute: 20,
+    endHour: 13,
+    endMinute: 30,
+    paid: false,
+  },
+  ],
 
   regularHours: 8,
 
@@ -42,10 +61,29 @@ const nightShift: Shift = {
   endHour: 2,
   endMinute: 30,
 
-  breakStartHour: 21,
-  breakStartMinute: 40,
-  breakEndHour: 22,
-  breakEndMinute: 20,
+  breaks: [
+    {
+    startHour: 19,
+    startMinute: 30,
+    endHour: 19,
+    endMinute: 40,
+    paid: false,
+  },
+  {
+    startHour: 21,
+    startMinute: 40,
+    endHour: 22,
+    endMinute: 20,
+    paid: false,
+  },
+  {
+    startHour: 0,
+    startMinute: 20,
+    endHour: 0,
+    endMinute: 30,
+    paid: false,
+  },
+  ],
 
   regularHours: 8,
 
@@ -80,6 +118,10 @@ function App() {
   const [endTime, setEndTime] = useState<string>("02:30");
   const [breakStartTime, setBreakStartTime] = useState<string>("21:40");
   const [breakEndTime, setBreakEndTime] = useState<string>("22:20");
+  const parsedStartTime = parseTime(startTime);
+  const parsedEndTime = parseTime(endTime);
+  const parsedBreakStartTime = parseTime(breakStartTime);
+  const parsedBreakEndTime = parseTime(breakEndTime);
 
   return(
     <>
@@ -115,15 +157,6 @@ function App() {
         type="time"
         value={breakStartTime}
         onChange={(event) => setBreakStartTime(event.target.value)}
-        />
-      </label>
-      <p>Break end time: {breakEndTime}</p>
-      <label>
-        Break end time:
-        <input
-        type="time"
-        value={breakEndTime}
-        onChange={(event) => setBreakEndTime(event.target.value)}
         />
       </label>
     </>

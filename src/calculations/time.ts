@@ -23,11 +23,20 @@ export function calculateShiftHours(shift: Shift): number {
 
 export function calculateBreakHours(shift: Shift): number {
   const hour = 60;
+  const day = 1440;
+  const unpaidBreaks = shift.breaks.filter((breakTime) => { return breakTime.paid === false });
 
-  const breakStart = timeToMinutes(shift.breakStartHour, shift.breakStartMinute);
-  const breakEnd = timeToMinutes(shift.breakEndHour, shift.breakEndMinute);
+  const totalBreakMinutes = unpaidBreaks.reduce((total, breakTime) => {
+    const breakStart = timeToMinutes(breakTime.startHour, breakTime.startMinute);
+    let breakEnd = timeToMinutes(breakTime.endHour, breakTime.endMinute);
+    if (breakEnd < breakStart) {
+      breakEnd += day;
+    }
+    total = total + (breakEnd - breakStart);
+    return total;
+  }, 0)
 
-  return (breakEnd - breakStart) / hour;
+  return totalBreakMinutes / hour;
 };
 
 export function calculateWorkedHours(shift: Shift): number {
@@ -36,26 +45,34 @@ export function calculateWorkedHours(shift: Shift): number {
 
 export function calculateNightBreakMinutes(shift: Shift): number {
   const day = 1440;
-
-  let breakStart = timeToMinutes(shift.breakStartHour, shift.breakStartMinute);
-  let breakEnd = timeToMinutes(shift.breakEndHour, shift.breakEndMinute);
+  const unpaidBreaks = shift.breaks.filter((breakTime) => { return breakTime.paid === false });
 
   const nightStart = timeToMinutes(shift.nightPremiumStartHour, shift.nightPremiumStartMinute);
   const nightEnd = timeToMinutes(shift.nightPremiumEndHour, shift.nightPremiumEndMinute) + day;
   const startTime = timeToMinutes(shift.startHour, shift.startMinute);
 
-  if (breakStart < startTime) {
-    breakStart = breakStart + day
-  }
+  const totalNightBreak = unpaidBreaks.reduce((total, breakTime) => {
+    let breakStart = timeToMinutes(breakTime.startHour, breakTime.startMinute);
+    let breakEnd = timeToMinutes(breakTime.endHour, breakTime.endMinute);
 
-  if (breakEnd < breakStart) {
-    breakEnd = breakEnd + day
-  }
+    if (breakStart < startTime) {
+      breakStart = breakStart + day
+    }
 
-  const overlapStart = Math.max(breakStart, nightStart);
-  const overlapEnd = Math.min(breakEnd, nightEnd);
+    if (breakEnd < breakStart) {
+      breakEnd = breakEnd + day
+    }
 
-  return Math.max(0, overlapEnd - overlapStart);
+    const overlapStart = Math.max(breakStart, nightStart);
+    const overlapEnd = Math.min(breakEnd, nightEnd);
+    const overlapMinutes = Math.max(0, overlapEnd - overlapStart);
+
+    total += overlapMinutes;
+
+    return total;
+  }, 0)
+
+  return totalNightBreak;
 
 }
 
