@@ -191,7 +191,17 @@ function App() {
               value={breakTime.endTime}
               onChange={(event) => setBreaks(
                 breaks.map((item, itemIndex) =>
-                itemIndex === index ? {...item, startTime: event.target.value} : item)
+                itemIndex === index ? {...item, endTime: event.target.value} : item)
+              )} />
+            </label>
+            <label>
+              Paid break:
+              <input
+              type="checkbox"
+              checked={breakTime.paid}
+              onChange={(event) => setBreaks(
+                breaks.map((item, itemIndex) =>
+                itemIndex === index ? {...item, paid: event.target.checked} : item)
               )} />
             </label>
           </div>
