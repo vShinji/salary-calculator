@@ -169,8 +169,31 @@ function App() {
         return(
           <div key={index}>
             <p>
-              Break {index + 1}: {breakTime.startTime} → {breakTime.endTime}
+              Break Start: {index + 1}: {breakTime.startTime}
             </p>
+            <p>
+              Break End: {index + 1}: {breakTime.endTime}
+            </p>
+            <label>
+              Break Start:
+              <input
+              type="time"
+              value={breakTime.startTime}
+              onChange={(event) => setBreaks(
+                breaks.map((item, itemIndex) =>
+                itemIndex === index ? {...item, startTime: event.target.value} : item)
+              )} />
+            </label>
+            <label>
+              Break End:
+              <input
+              type="time"
+              value={breakTime.endTime}
+              onChange={(event) => setBreaks(
+                breaks.map((item, itemIndex) =>
+                itemIndex === index ? {...item, startTime: event.target.value} : item)
+              )} />
+            </label>
           </div>
         )
       })}
