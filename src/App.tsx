@@ -116,12 +116,27 @@ function App() {
   const [hourlyRate, setHourlyRate] = useState<number>(1550);
   const [startTime, setStartTime] = useState<string>("17:30");
   const [endTime, setEndTime] = useState<string>("02:30");
-  const [breakStartTime, setBreakStartTime] = useState<string>("21:40");
-  const [breakEndTime, setBreakEndTime] = useState<string>("22:20");
-  const parsedStartTime = parseTime(startTime);
-  const parsedEndTime = parseTime(endTime);
-  const parsedBreakStartTime = parseTime(breakStartTime);
-  const parsedBreakEndTime = parseTime(breakEndTime);
+  const [breaks, setBreaks] = useState([
+  {
+    startTime: "19:30",
+    endTime: "19:40",
+    paid: false,
+  },
+  {
+    startTime: "21:40",
+    endTime: "22:20",
+    paid: false,
+  },
+  {
+    startTime: "00:20",
+    endTime: "00:30",
+    paid: false,
+  },
+]);
+  // const parsedStartTime = parseTime(startTime);
+  // const parsedEndTime = parseTime(endTime);
+  // const parsedBreakStartTime = parseTime(breakStartTime);
+  // const parsedBreakEndTime = parseTime(breakEndTime);
 
   return(
     <>
@@ -150,16 +165,18 @@ function App() {
         onChange={(event) => setEndTime(event.target.value)}
         />
       </label>
-      <p>Break start time: {breakStartTime}</p>
-      <label>
-        Break start time:
-        <input
-        type="time"
-        value={breakStartTime}
-        onChange={(event) => setBreakStartTime(event.target.value)}
-        />
-      </label>
+      {breaks.map((breakTime, index) =>{
+        return(
+          <div key={index}>
+            <p>
+              Break {index + 1}: {breakTime.startTime} → {breakTime.endTime}
+            </p>
+          </div>
+        )
+      })}
+
     </>
+
   )
 
 }
