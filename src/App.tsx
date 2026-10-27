@@ -204,10 +204,20 @@ function App() {
                 itemIndex === index ? {...item, paid: event.target.checked} : item)
               )} />
             </label>
+
           </div>
         )
       })}
-
+    <button
+      type="button"
+      onClick={() => {setBreaks([...breaks,{
+              startTime:"00:00",
+              endTime:"00:00",
+              paid: false,
+            },
+            ])}}>
+              Add break
+    </button>
     </>
 
   )
