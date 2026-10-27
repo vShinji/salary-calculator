@@ -204,7 +204,14 @@ function App() {
                 itemIndex === index ? {...item, paid: event.target.checked} : item)
               )} />
             </label>
-
+              <button
+              type="button"
+              onClick={() => {setBreaks(
+                breaks.filter((_, itemIndex) =>
+                itemIndex !== index)
+              )}}>
+                Remove Break
+              </button>
           </div>
         )
       })}
