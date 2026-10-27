@@ -133,10 +133,20 @@ function App() {
     paid: false,
   },
 ]);
-  // const parsedStartTime = parseTime(startTime);
-  // const parsedEndTime = parseTime(endTime);
-  // const parsedBreakStartTime = parseTime(breakStartTime);
-  // const parsedBreakEndTime = parseTime(breakEndTime);
+  const parsedStartTime = parseTime(startTime);
+  const parsedEndTime = parseTime(endTime);
+  const parsedBreaks = breaks.map((breakTime) => {
+    const start = parseTime(breakTime.startTime);
+    const end = parseTime(breakTime.endTime);
+
+    return ({
+      startHour: start.hour,
+      startMinute: start.minute,
+      endHour: end.hour,
+      endMinute: end.minute,
+      paid: breakTime.paid,
+    })
+  });
 
   return(
     <>
