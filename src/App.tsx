@@ -133,8 +133,8 @@ function App() {
     paid: false,
   },
 ]);
-  const parsedStartTime = parseTime(startTime);
-  const parsedEndTime = parseTime(endTime);
+  const parsedStart = parseTime(startTime);
+  const parsedEnd = parseTime(endTime);
   const parsedBreaks = breaks.map((breakTime) => {
     const start = parseTime(breakTime.startTime);
     const end = parseTime(breakTime.endTime);
@@ -147,6 +147,30 @@ function App() {
       paid: breakTime.paid,
     })
   });
+
+  const shift: Shift = {
+    hourlyRate: hourlyRate,
+
+    startHour: parsedStart.hour,
+    startMinute: parsedStart.minute,
+
+    endHour: parsedEnd.hour,
+    endMinute: parsedEnd.minute,
+
+    breaks: parsedBreaks,
+
+    regularHours: 8,
+
+    nightPremium: 0.25,
+    overtimePremium: 0.25,
+
+    nightPremiumStartHour: 22,
+    nightPremiumStartMinute: 0,
+    nightPremiumEndHour: 5,
+    nightPremiumEndMinute: 0,
+};
+
+const totalPay = calculateTotalPay(shift);
 
   return(
     <>
@@ -235,6 +259,7 @@ function App() {
             ])}}>
               Add break
     </button>
+    <p>Total pay: ¥{totalPay}</p>
     </>
 
   )
