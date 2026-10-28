@@ -116,8 +116,8 @@ function App() {
   const [hourlyRate, setHourlyRate] = useState<number>(1550);
   const [startTime, setStartTime] = useState<string>("17:30");
   const [endTime, setEndTime] = useState<string>("02:30");
-  const [overtimePremium, setOvertimePremium] = useState<number>(0.25);
-  const [nightPremium, setNightPremium] = useState<number>(0.25);
+  const [overtimePremium, setOvertimePremium] = useState<number>(25);
+  const [nightPremium, setNightPremium] = useState<number>(25);
   const [breaks, setBreaks] = useState([
   {
     startTime: "19:30",
@@ -163,8 +163,8 @@ function App() {
 
     regularHours: 8,
 
-    nightPremium: 0.25,
-    overtimePremium: 0.25,
+    nightPremium: nightPremium / 100,
+    overtimePremium: overtimePremium / 100,
 
     nightPremiumStartHour: 22,
     nightPremiumStartMinute: 0,
@@ -172,14 +172,15 @@ function App() {
     nightPremiumEndMinute: 0,
 };
 
+const basePay = calculateShiftPay(shift);
+const formattedBasePay = Math.round(basePay).toLocaleString("ja-JP");
+
 const totalPay = calculateTotalPay(shift);
 const formattedTotalPay = Math.round(totalPay).toLocaleString("ja-JP");
 
-const overtimePremiumRate = shift.hourlyRate * shift.overtimePremium;
 const totalOvertimePay = calculateOvertimePremium(shift);
 const formattedOvertimePremium = Math.round(totalOvertimePay).toLocaleString("ja-JP");
 
-const nightPremiumRate = shift.hourlyRate * shift.overtimePremium;
 const totalNightPay = calculateNightPremium(shift);
 const formattedNightPremium = Math.round(totalNightPay).toLocaleString("ja-JP");
 
@@ -194,16 +195,16 @@ const totalWorkedHour = calculateWorkedHours(shift);
       value={hourlyRate}
       onChange={(event) => setHourlyRate(Number(event.target.value))}
       />
-      <p>Overtime premium rate: ¥{overtimePremiumRate}</p>
+      <p>Overtime premium rate: {overtimePremium}%</p>
       <input
       type="number"
       value={overtimePremium}
       onChange={(event) => setOvertimePremium(Number(event.target.value))}
       />
-      <p>Night premium rate: ¥{nightPremiumRate}</p>
+      <p>Night premium rate: {nightPremium}%</p>
       <input
       type="number"
-      value={nightPremiumRate}
+      value={nightPremium}
       onChange={(event) => setNightPremium(Number(event.target.value))} />
       <p>Start time: {startTime}</p>
       <label>
@@ -284,8 +285,9 @@ const totalWorkedHour = calculateWorkedHours(shift);
               Add break
     </button>
     <p>Total worked hours: {totalWorkedHour}</p>
-    <p>Total overtime: ¥{formattedOvertimePremium}</p>
-    <p>Total night premium: ¥{formattedNightPremium}</p>
+    <p>Base pay: ¥{formattedBasePay}</p>
+    <p>Overtime premium: ¥{formattedOvertimePremium}</p>
+    <p>Night premium: ¥{formattedNightPremium}</p>
     <p>Total pay: ¥{formattedTotalPay}</p>
     </>
 
