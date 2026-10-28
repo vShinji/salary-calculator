@@ -116,6 +116,8 @@ function App() {
   const [hourlyRate, setHourlyRate] = useState<number>(1550);
   const [startTime, setStartTime] = useState<string>("17:30");
   const [endTime, setEndTime] = useState<string>("02:30");
+  const [overtimePremium, setOvertimePremium] = useState<number>(0.25);
+  const [nightPremium, setNightPremium] = useState<number>(0.25);
   const [breaks, setBreaks] = useState([
   {
     startTime: "19:30",
@@ -171,6 +173,17 @@ function App() {
 };
 
 const totalPay = calculateTotalPay(shift);
+const formattedTotalPay = Math.round(totalPay).toLocaleString("ja-JP");
+
+const overtimePremiumRate = shift.hourlyRate * shift.overtimePremium;
+const totalOvertimePay = calculateOvertimePremium(shift);
+const formattedOvertimePremium = Math.round(totalOvertimePay).toLocaleString("ja-JP");
+
+const nightPremiumRate = shift.hourlyRate * shift.overtimePremium;
+const totalNightPay = calculateNightPremium(shift);
+const formattedNightPremium = Math.round(totalNightPay).toLocaleString("ja-JP");
+
+const totalWorkedHour = calculateWorkedHours(shift);
 
   return(
     <>
@@ -181,6 +194,17 @@ const totalPay = calculateTotalPay(shift);
       value={hourlyRate}
       onChange={(event) => setHourlyRate(Number(event.target.value))}
       />
+      <p>Overtime premium rate: ¥{overtimePremiumRate}</p>
+      <input
+      type="number"
+      value={overtimePremium}
+      onChange={(event) => setOvertimePremium(Number(event.target.value))}
+      />
+      <p>Night premium rate: ¥{nightPremiumRate}</p>
+      <input
+      type="number"
+      value={nightPremiumRate}
+      onChange={(event) => setNightPremium(Number(event.target.value))} />
       <p>Start time: {startTime}</p>
       <label>
         Start time:
@@ -259,7 +283,10 @@ const totalPay = calculateTotalPay(shift);
             ])}}>
               Add break
     </button>
-    <p>Total pay: ¥{totalPay}</p>
+    <p>Total worked hours: {totalWorkedHour}</p>
+    <p>Total overtime: ¥{formattedOvertimePremium}</p>
+    <p>Total night premium: ¥{formattedNightPremium}</p>
+    <p>Total pay: ¥{formattedTotalPay}</p>
     </>
 
   )
