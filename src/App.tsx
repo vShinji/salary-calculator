@@ -2,7 +2,7 @@ import { useState } from 'react'
 import './App.css'
 
 import type { Shift } from "./types/Shift";
-import {calculateWorkedHours, parseTime} from "./calculations/time";
+import {calculateWorkedHours, parseTime, formatHours} from "./calculations/time";
 import {calculateShiftPay, calculateNightPremium, calculateOvertimePremium, calculateTotalPay} from "./calculations/salary";
 
 function App() {
@@ -177,7 +177,7 @@ const totalWorkedHour = calculateWorkedHours(shift);
             ])}}>
               Add break
     </button>
-    <p>Total worked hours: {totalWorkedHour}</p>
+    <p>Total worked hours: {formatHours(totalWorkedHour)}</p>
     <p>Base pay: ¥{formattedBasePay}</p>
     <p>Overtime premium: ¥{formattedOvertimePremium}</p>
     <p>Night premium: ¥{formattedNightPremium}</p>

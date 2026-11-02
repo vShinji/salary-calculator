@@ -108,3 +108,15 @@ export function parseTime(time: string): {
   minute: parsedMinute,
  }
 }
+
+export function formatHours(hours: number): string {
+  const wholeHours = Math.floor(hours);
+  const minutes = Math.round((hours - wholeHours) * 60);
+
+  if (minutes === 60) {
+    return `${wholeHours + 1}h ${minutes}m`
+  } else {
+    return `${wholeHours}h ${minutes}m`
+  }
+
+}
