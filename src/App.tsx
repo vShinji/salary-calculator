@@ -12,6 +12,8 @@ function App() {
   const [endTime, setEndTime] = useState<string>("02:30");
   const [overtimePremium, setOvertimePremium] = useState<number>(25);
   const [nightPremium, setNightPremium] = useState<number>(25);
+  const [nightPremiumStart, setNightPremiumStart] = useState<string>("22:00");
+  const [nightPremiumEnd, setNightPremiumEnd] = useState<string>("05:00");
   const [breaks, setBreaks] = useState([
   {
     startTime: "19:30",
@@ -31,6 +33,8 @@ function App() {
 ]);
   const parsedStart = parseTime(startTime);
   const parsedEnd = parseTime(endTime);
+  const parsedNightStart = parseTime(nightPremiumStart);
+  const parsedNightEnd = parseTime(nightPremiumEnd);
   const parsedBreaks = breaks.map((breakTime) => {
     const start = parseTime(breakTime.startTime);
     const end = parseTime(breakTime.endTime);
@@ -60,10 +64,10 @@ function App() {
     nightPremium: nightPremium / 100,
     overtimePremium: overtimePremium / 100,
 
-    nightPremiumStartHour: 22,
-    nightPremiumStartMinute: 0,
-    nightPremiumEndHour: 5,
-    nightPremiumEndMinute: 0,
+    nightPremiumStartHour: parsedNightStart.hour,
+    nightPremiumStartMinute: parsedNightStart.minute,
+    nightPremiumEndHour: parsedNightEnd.hour,
+    nightPremiumEndMinute: parsedNightEnd.minute,
 };
 
 const basePay = calculateShiftPay(shift);
@@ -97,17 +101,6 @@ const totalWorkedHour = calculateWorkedHours(shift);
         onChange={(event) => setRegularHours(Number(event.target.value))}
         />
       </label>
-      <p>Overtime premium rate: {overtimePremium}%</p>
-      <input
-      type="number"
-      value={overtimePremium}
-      onChange={(event) => setOvertimePremium(Number(event.target.value))}
-      />
-      <p>Night premium rate: {nightPremium}%</p>
-      <input
-      type="number"
-      value={nightPremium}
-      onChange={(event) => setNightPremium(Number(event.target.value))} />
       <p>Start time: {startTime}</p>
       <label>
         Start time:
@@ -125,6 +118,33 @@ const totalWorkedHour = calculateWorkedHours(shift);
         value={endTime}
         onChange={(event) => setEndTime(event.target.value)}
         />
+      <p>Overtime premium rate: {overtimePremium}%</p>
+      <input
+      type="number"
+      value={overtimePremium}
+      onChange={(event) => setOvertimePremium(Number(event.target.value))}
+      />
+      <p>Night premium rate: {nightPremium}%</p>
+      <input
+      type="number"
+      value={nightPremium}
+      onChange={(event) => setNightPremium(Number(event.target.value))} />
+      <label>
+        Night premium start time:
+        <input
+        type="time"
+        value={nightPremiumStart}
+        onChange={(event) => setNightPremiumStart(event.target.value)}
+        />
+      </label>
+      <label>
+        Night premium end time:
+        <input
+        type="time"
+        value={nightPremiumEnd}
+        onChange={(event) => setNightPremiumEnd(event.target.value)}
+        />
+      </label>
       </label>
       {breaks.map((breakTime, index) =>{
         return(
