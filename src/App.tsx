@@ -7,6 +7,7 @@ import {calculateShiftPay, calculateNightPremium, calculateOvertimePremium, calc
 
 function App() {
   const [hourlyRate, setHourlyRate] = useState<number>(1550);
+  const [regularHours, setRegularHours] = useState<number>(8);
   const [startTime, setStartTime] = useState<string>("17:30");
   const [endTime, setEndTime] = useState<string>("02:30");
   const [overtimePremium, setOvertimePremium] = useState<number>(25);
@@ -54,7 +55,7 @@ function App() {
 
     breaks: parsedBreaks,
 
-    regularHours: 8,
+    regularHours: regularHours,
 
     nightPremium: nightPremium / 100,
     overtimePremium: overtimePremium / 100,
@@ -88,6 +89,14 @@ const totalWorkedHour = calculateWorkedHours(shift);
       value={hourlyRate}
       onChange={(event) => setHourlyRate(Number(event.target.value))}
       />
+      <label>
+        Regular hours before overtime:
+        <input
+        type="number"
+        value={regularHours}
+        onChange={(event) => setRegularHours(Number(event.target.value))}
+        />
+      </label>
       <p>Overtime premium rate: {overtimePremium}%</p>
       <input
       type="number"
