@@ -84,6 +84,19 @@ const formattedNightPremium = Math.round(totalNightPay).toLocaleString("ja-JP");
 
 const totalWorkedHour = calculateWorkedHours(shift);
 
+function updateBreak(
+  index: number,
+  updatedBreak: {
+    startTime: string;
+    endTime: string;
+    paid: boolean;
+  }) {
+    setBreaks(
+      breaks.map((item, itemIndex) =>
+      itemIndex === index ? updatedBreak : item)
+    )
+};
+
   return(
     <>
       <h1>Salary Calculator</h1>
@@ -160,30 +173,21 @@ const totalWorkedHour = calculateWorkedHours(shift);
               <input
               type="time"
               value={breakTime.startTime}
-              onChange={(event) => setBreaks(
-                breaks.map((item, itemIndex) =>
-                itemIndex === index ? {...item, startTime: event.target.value} : item)
-              )} />
+              onChange={(event) => updateBreak(index, {...breakTime, startTime: event.target.value,})} />
             </label>
             <label>
               Break End:
               <input
               type="time"
               value={breakTime.endTime}
-              onChange={(event) => setBreaks(
-                breaks.map((item, itemIndex) =>
-                itemIndex === index ? {...item, endTime: event.target.value} : item)
-              )} />
+              onChange={(event) => updateBreak(index, {...breakTime, endTime: event.target.value,})} />
             </label>
             <label>
               Paid break:
               <input
               type="checkbox"
               checked={breakTime.paid}
-              onChange={(event) => setBreaks(
-                breaks.map((item, itemIndex) =>
-                itemIndex === index ? {...item, paid: event.target.checked} : item)
-              )} />
+              onChange={(event) => updateBreak(index, {...breakTime, paid: event.target.checked,})} />
             </label>
               <button
               type="button"
