@@ -100,137 +100,131 @@ function updateBreak(
   return(
     <>
       <h1>Salary Calculator</h1>
-      <section>
-        <h2>Pay Settings</h2>
-        <p>Hourly rate: ¥{hourlyRate}</p>
-        <input
-        type="number"
-        value={hourlyRate}
-        onChange={(event) => setHourlyRate(Number(event.target.value))}
-        />
-        <label>
-          Regular hours before overtime:
+      <main className='app'>
+        <section className='card'>
+          <h2>Pay Settings</h2>
+          <label> Hourly rate: </label>
+          <input
+          type="number"
+          value={hourlyRate}
+          onChange={(event) => setHourlyRate(Number(event.target.value))}
+          />
+
+          <label>Regular hours before overtime: </label>
           <input
           type="number"
           value={regularHours}
           onChange={(event) => setRegularHours(Number(event.target.value))}
           />
-        </label>
-        <p>Overtime premium rate: {overtimePremium}%</p>
-        <input
-        type="number"
-        value={overtimePremium}
-        onChange={(event) => setOvertimePremium(Number(event.target.value))}
-        />
-        <p>Night premium rate: {nightPremium}%</p>
-        <input
-        type="number"
-        value={nightPremium}
-        onChange={(event) => setNightPremium(Number(event.target.value))}
-        />
-      </section>
 
-      <section>
-        <h2>Shift Settings</h2>
-        <p>Start time: {startTime}</p>
-        <label>
-          Start time:
+          <label>Overtime premium rate:</label>
           <input
-          type="time"
-          value={startTime}
-          onChange={(event) => setStartTime(event.target.value)}
+          type="number"
+          value={overtimePremium}
+          onChange={(event) => setOvertimePremium(Number(event.target.value))}
           />
-        </label>
-        <p>End time: {endTime}</p>
-        <label>
-          End time:
+          <label>Night premium rate:</label>
           <input
-          type="time"
-          value={endTime}
-          onChange={(event) => setEndTime(event.target.value)}
+          type="number"
+          value={nightPremium}
+          onChange={(event) => setNightPremium(Number(event.target.value))}
           />
-        </label>
-        <label>
-          Night premium start time:
-          <input
-          type="time"
-          value={nightPremiumStart}
-          onChange={(event) => setNightPremiumStart(event.target.value)}
-          />
-        </label>
-        <label>
-          Night premium end time:
-          <input
-          type="time"
-          value={nightPremiumEnd}
-          onChange={(event) => setNightPremiumEnd(event.target.value)}
-          />
-        </label>
-      </section>
+        </section>
 
-      <section>
-        <h2>Break settings</h2>
-        {breaks.map((breakTime, index) =>{
-          return(
-            <div key={index}>
-              <p>
-                Break Start: {index + 1}: {breakTime.startTime}
-              </p>
-              <p>
-                Break End: {index + 1}: {breakTime.endTime}
-              </p>
-              <label>
-                Break Start:
-                <input
-                type="time"
-                value={breakTime.startTime}
-                onChange={(event) => updateBreak(index, {...breakTime, startTime: event.target.value,})} />
-              </label>
-              <label>
-                Break End:
-                <input
-                type="time"
-                value={breakTime.endTime}
-                onChange={(event) => updateBreak(index, {...breakTime, endTime: event.target.value,})} />
-              </label>
-              <label>
-                Paid break:
-                <input
-                type="checkbox"
-                checked={breakTime.paid}
-                onChange={(event) => updateBreak(index, {...breakTime, paid: event.target.checked,})} />
-              </label>
-                <button
-                type="button"
-                onClick={() => {setBreaks(
-                  breaks.filter((_, itemIndex) =>
-                  itemIndex !== index)
-                )}}>
-                  Remove Break
-                </button>
-            </div>
-          )
-        })}
-        <button
-          type="button"
-          onClick={() => {setBreaks([...breaks,{
-                  startTime:"00:00",
-                  endTime:"00:00",
-                  paid: false,
-                },
-                ])}}>
-                  Add break
-        </button>
-      </section>
+        <section className='card'>
+          <h2>Shift Settings</h2>
+          <label>
+            Start time:
+            <input
+            type="time"
+            value={startTime}
+            onChange={(event) => setStartTime(event.target.value)}
+            />
+          </label>
+          <label>
+            End time:
+            <input
+            type="time"
+            value={endTime}
+            onChange={(event) => setEndTime(event.target.value)}
+            />
+          </label>
+          <label>
+            Night premium start time:
+            <input
+            type="time"
+            value={nightPremiumStart}
+            onChange={(event) => setNightPremiumStart(event.target.value)}
+            />
+          </label>
+          <label>
+            Night premium end time:
+            <input
+            type="time"
+            value={nightPremiumEnd}
+            onChange={(event) => setNightPremiumEnd(event.target.value)}
+            />
+          </label>
+        </section>
 
-      <section>
-        <h2>Results</h2>
-        <p>Total worked hours: {formatHours(totalWorkedHour)}</p>
-        <p>Base pay: ¥{formattedBasePay}</p>
-        <p>Overtime premium: ¥{formattedOvertimePremium}</p>
-        <p>Night premium: ¥{formattedNightPremium}</p>
-        <p>Total pay: ¥{formattedTotalPay}</p>
-      </section>
+        <section className='card'>
+          <h2>Break settings</h2>
+          {breaks.map((breakTime, index) =>{
+            return(
+              <div key={index}>
+                <label>
+                  Break Start:
+                  <input
+                  type="time"
+                  value={breakTime.startTime}
+                  onChange={(event) => updateBreak(index, {...breakTime, startTime: event.target.value,})} />
+                </label>
+                <label>
+                  Break End:
+                  <input
+                  type="time"
+                  value={breakTime.endTime}
+                  onChange={(event) => updateBreak(index, {...breakTime, endTime: event.target.value,})} />
+                </label>
+                <label>
+                  Paid break:
+                  <input
+                  type="checkbox"
+                  checked={breakTime.paid}
+                  onChange={(event) => updateBreak(index, {...breakTime, paid: event.target.checked,})} />
+                </label>
+                  <button
+                  type="button"
+                  onClick={() => {setBreaks(
+                    breaks.filter((_, itemIndex) =>
+                    itemIndex !== index)
+                  )}}>
+                    Remove Break
+                  </button>
+              </div>
+            )
+          })}
+          <button
+            type="button"
+            onClick={() => {setBreaks([...breaks,{
+                    startTime:"00:00",
+                    endTime:"00:00",
+                    paid: false,
+                  },
+                  ])}}>
+                    Add break
+          </button>
+        </section>
+
+        <section className='card'>
+          <h2>Results</h2>
+          <p>Total worked hours: {formatHours(totalWorkedHour)}</p>
+          <p>Base pay: ¥{formattedBasePay}</p>
+          <p>Overtime premium: ¥{formattedOvertimePremium}</p>
+          <p>Night premium: ¥{formattedNightPremium}</p>
+          <p>Total pay: ¥{formattedTotalPay}</p>
+        </section>
+      </main>
     </>
 
   )
