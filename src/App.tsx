@@ -103,32 +103,38 @@ function updateBreak(
       <main className='app'>
         <section className='card'>
           <h2>Pay Settings</h2>
-          <label> Hourly rate: </label>
-          <input
-          type="number"
-          value={hourlyRate}
-          onChange={(event) => setHourlyRate(Number(event.target.value))}
-          />
-
-          <label>Regular hours before overtime: </label>
-          <input
-          type="number"
-          value={regularHours}
-          onChange={(event) => setRegularHours(Number(event.target.value))}
-          />
-
-          <label>Overtime premium rate:</label>
-          <input
-          type="number"
-          value={overtimePremium}
-          onChange={(event) => setOvertimePremium(Number(event.target.value))}
-          />
-          <label>Night premium rate:</label>
-          <input
-          type="number"
-          value={nightPremium}
-          onChange={(event) => setNightPremium(Number(event.target.value))}
-          />
+          <div className='field'>
+            <label> Hourly rate: </label>
+            <input
+            type="number"
+            value={hourlyRate}
+            onChange={(event) => setHourlyRate(Number(event.target.value))}
+            />
+          </div>
+          <div className='field'>
+            <label>Regular hours before overtime: </label>
+            <input
+            type="number"
+            value={regularHours}
+            onChange={(event) => setRegularHours(Number(event.target.value))}
+            />
+          </div>
+          <div className='field'>
+            <label>Overtime premium rate:</label>
+            <input
+            type="number"
+            value={overtimePremium}
+            onChange={(event) => setOvertimePremium(Number(event.target.value))}
+            />
+          </div>
+          <div className='field'>
+            <label>Night premium rate:</label>
+            <input
+            type="number"
+            value={nightPremium}
+            onChange={(event) => setNightPremium(Number(event.target.value))}
+            />
+          </div>
         </section>
 
         <section className='card'>
