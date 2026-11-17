@@ -101,11 +101,12 @@ function updateBreak(
     <>
       <h1>Salary Calculator</h1>
       <main className='app'>
-        <section className='card'>
+        <section className='rounded-xl bg-white p-6 shadow-sm'>
           <h2>Pay Settings</h2>
           <div className='field'>
             <label> Hourly rate: </label>
             <input
+            className="w-full rounded-lg border px-3 py-2"
             type="number"
             value={hourlyRate}
             onChange={(event) => setHourlyRate(Number(event.target.value))}
@@ -114,6 +115,7 @@ function updateBreak(
           <div className='field'>
             <label>Regular hours before overtime: </label>
             <input
+            className="w-full rounded-lg border px-3 py-2"
             type="number"
             value={regularHours}
             onChange={(event) => setRegularHours(Number(event.target.value))}
@@ -122,6 +124,7 @@ function updateBreak(
           <div className='field'>
             <label>Overtime premium rate:</label>
             <input
+            className="w-full rounded-lg border px-3 py-2"
             type="number"
             value={overtimePremium}
             onChange={(event) => setOvertimePremium(Number(event.target.value))}
@@ -130,6 +133,7 @@ function updateBreak(
           <div className='field'>
             <label>Night premium rate:</label>
             <input
+            className="w-full rounded-lg border px-3 py-2"
             type="number"
             value={nightPremium}
             onChange={(event) => setNightPremium(Number(event.target.value))}
@@ -137,43 +141,56 @@ function updateBreak(
           </div>
         </section>
 
-        <section className='card'>
+        <section className='rounded-xl bg-white p-6 shadow-sm'>
           <h2>Shift Settings</h2>
-          <label>
-            Start time:
-            <input
-            type="time"
-            value={startTime}
-            onChange={(event) => setStartTime(event.target.value)}
-            />
-          </label>
-          <label>
-            End time:
-            <input
-            type="time"
-            value={endTime}
-            onChange={(event) => setEndTime(event.target.value)}
-            />
-          </label>
-          <label>
-            Night premium start time:
-            <input
-            type="time"
-            value={nightPremiumStart}
-            onChange={(event) => setNightPremiumStart(event.target.value)}
-            />
-          </label>
-          <label>
-            Night premium end time:
-            <input
-            type="time"
-            value={nightPremiumEnd}
-            onChange={(event) => setNightPremiumEnd(event.target.value)}
-            />
-          </label>
+
+          <div className='field'>
+            <label>
+              Start time:
+              <input
+              className="w-full rounded-lg border px-3 py-2"
+              type="time"
+              value={startTime}
+              onChange={(event) => setStartTime(event.target.value)}
+              />
+            </label>
+          </div>
+          <div className='field'>
+            <label>
+              End time:
+              <input
+              className="w-full rounded-lg border px-3 py-2"
+              type="time"
+              value={endTime}
+              onChange={(event) => setEndTime(event.target.value)}
+              />
+            </label>
+          </div>
+          <div className='field'>
+            <label>
+              Night premium start time:
+              <input
+              className="w-full rounded-lg border px-3 py-2"
+              type="time"
+              value={nightPremiumStart}
+              onChange={(event) => setNightPremiumStart(event.target.value)}
+              />
+            </label>
+          </div>
+          <div className='field'>
+            <label>
+              Night premium end time:
+              <input
+              className="w-full rounded-lg border px-3 py-2"
+              type="time"
+              value={nightPremiumEnd}
+              onChange={(event) => setNightPremiumEnd(event.target.value)}
+              />
+            </label>
+          </div>
         </section>
 
-        <section className='card'>
+        <section className='rounded-xl bg-white p-6 shadow-sm'>
           <h2>Break settings</h2>
           {breaks.map((breakTime, index) =>{
             return(
@@ -222,7 +239,7 @@ function updateBreak(
           </button>
         </section>
 
-        <section className='card'>
+        <section className='rounded-xl bg-white p-6 shadow-sm'>
           <h2>Results</h2>
           <p>Total worked hours: {formatHours(totalWorkedHour)}</p>
           <p>Base pay: ¥{formattedBasePay}</p>
